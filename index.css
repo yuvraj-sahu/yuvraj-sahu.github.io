@@ -1,11 +1,11 @@
 body {
-    background-color: lightblue;
+    background-color: black;
 }
 
 div {
-    color: green;
+    color: #2222DD;
     border-radius: 10px;
-    border: 4px solid green;
+    border: 4px solid #22DD22;
     padding: 5px;
     margin: 5px;
 }
