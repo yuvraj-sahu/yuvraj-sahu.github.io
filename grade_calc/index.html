@@ -1,10 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Grade calculator</title>
-</head>
-<body>
-<p>WIP</p>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Grade calculator</title>
+        <link href="../index.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div>
+                <h1>Grade Modeler</h1>
+                <p>Start adding categories, entering your grades, and making variables!</p>
+            </div>
+
+            <button id="addButton" onclick="add()">Add Category</button>
+        </div>
+
+        <script>
+
+            let container = $(".container"), button = container.children("#addButton");
+
+            function add() {
+                container.append(`
+                    <div>
+                        <input type="text" placeholder="Quiz Name">
+                        <input type="number" min="0" max="100" placeholder="Percent Weight"
+                    </div>
+                `);
+
+                button.remove();
+                container.append(button);
+
+            }
+        </script>
+    </body>
 </html>
