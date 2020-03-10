@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Grade calculator</title>
+        <!--<link href="../../index.css" rel="stylesheet">-->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+        <div class="container">
+            <div id="header">
+                <h1>Grade Modeler</h1>
+                <p>Start adding categories, entering your grades, and making variables!</p>
+            </div>
+
+            <div id="end">
+                <button id="addButton" onclick="addCategory()">Add Category</button>
+                <button id="calculate" onclick="calculate()">Calculate</button>
+                <p id="results"></p>
+            </div>
+        </div>
+
+        <script>
+
+            const container = $(".container");
+            const end = container.children("#end");
+            const button = end.children("#addButton"), calcButton = end.children("#calculate");
+
+            let idNumber = 0;
+
+            function addCategory() {
+                container.append(`
+                    <div id=${idNumber} class="categories">
+                        <input type="text" placeholder="Category Name">
+                        <input type="number" min="0" max="100" placeholder="Percent Weight">
+                        <div id="gradeList"></div>
+                        <div id="end">
+                            <button id="innerButton" onclick="addAssignment(${idNumber})">Add Assignment</button>
+                            <p id="innerResult"></p>
+                        </div>
+                    </div>
+                `);
+
+                end.remove();
+                container.append(end);
+                idNumber = idNumber + 1;
+            }
+
+            function addAssignment(idNumber) {
+                let div = container.children("#" + idNumber)
+                let gradeList = div.children("#gradeList");
+                gradeList.append(`
+                    <div>
+                        <input id="amount" type="number" min="0" placeholder="Amount scored">
+                        <input id="weight" type="number" min="0" placeholder="Weight">
+                    </div>
+                `)
+
+                let endBlock = div.children("#end");
+                endBlock.remove();
+                div.append(endBlock);
+            }
+
+            function calculate() {
+                const children = container.children(".categories");
+                for (let i = 0; i < children.length; i++) {
+                    const div = children[i].children;
+                    const gradeList = div[2].children;
+                    let totalAmount = 0, totalWeight = 0;
+                    for (let j = 0; j < gradeList.length; j++) {
+                        const gradeInfo = gradeList[j].children;
+                        const amount = parseFloat(gradeInfo[0].value);
+                        const weight = parseFloat(gradeInfo[1].value);
+                        totalAmount += amount;
+                        totalWeight += weight;
+                    }
+                    div[3].children[1].text(totalAmount / totalWeight);
+                }
+            }
+
+
+        </script>
+    </body>
+</html>
